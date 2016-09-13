@@ -5,7 +5,7 @@ require 'scraperwiki'
 require 'nokogiri'
 require 'open-uri'
 
-require 'open-uri/cached'
+require 'scraped_page_archive/open-uri'
 require 'pry'
 
 class Khurai
