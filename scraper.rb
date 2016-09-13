@@ -9,28 +9,29 @@ require 'scraped_page_archive/open-uri'
 require 'pry'
 
 class Khurai
-
   def members
     table.xpath('.//tr[td]').map do |tr|
       @tds = tr.xpath('./td')
-
       @cells = tr_with_district || tr_without_district
-
-      data = {
-        name: name,
-        name__mn: name_mn,
-        party: party,
-        constituency: constituency,
-        term: term,
-        wikiname: wikiname,
-        source: url,
-      }
+      data
     end
   end
 
   private
 
   attr_reader :cells, :tds
+
+  def data
+    {
+      name: name,
+      name__mn: name_mn,
+      party: party,
+      constituency: constituency,
+      term: term,
+      wikiname: wikiname,
+      source: url,
+    }
+  end
 
   def name
     tds[cells[:name]].xpath('.//a').text.strip
