@@ -75,7 +75,7 @@ class Khurai
   end
 
   def tr_with_district
-    if tds[0][:rowspan] == '3'
+    if tds[0][:rowspan]
       {
         name: 2,
         name__mn: 3,
