@@ -45,10 +45,6 @@ class Khurai
     tds[cells[:party]].text.strip
   end
 
-  def constituency
-    'n/a'
-  end
-
   def term
     '2016'
   end
@@ -90,6 +86,12 @@ class Khurai
       name__mn: 2,
       party: 4,
     }
+  end
+
+  def constituency
+    cell_text = tds[0].text.strip.gsub("\n", ' — ')
+    @current_constituency = cell_text unless cell_text =~ /\d/
+    @current_constituency
   end
 end
 
