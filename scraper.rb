@@ -17,7 +17,7 @@ class Table
     table.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
       constituency = tds.first.text.strip.gsub("\n",' — ') if tds.first[:rowspan]
-      Row.new(tds, constituency).to_h
+      Row.new(tds).to_h.merge(constituency: constituency)
     end
   end
 
@@ -27,9 +27,8 @@ class Table
 end
 
 class Row
-  def initialize(tds, constituency)
+  def initialize(tds)
     @tds = tds
-    @constituency = constituency
   end
 
   def to_h
@@ -39,13 +38,12 @@ class Row
       party: party,
       term: term,
       wikiname: wikiname,
-      constituency: constituency,
     }
   end
 
   private
 
-  attr_reader :tds, :cells, :constituency
+  attr_reader :tds, :cells
 
   def cellmap
     @cellmap ||= cellmap_with_district || cellmap_without_district
