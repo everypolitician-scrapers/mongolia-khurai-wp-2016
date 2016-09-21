@@ -89,27 +89,13 @@ class Row
   end
 end
 
-class Member
-  attr_reader :data
-
-  def initialize(data)
-    @data = data
-  end
-
-  def to_h
-    @data.to_h
-  end
-end
-
 class Khurai
   def initialize(url)
     @url = url
   end
 
   def members
-    Table.new(table).rows do |r|
-      Member.new(r)
-    end
+    Table.new(table).rows
   end
 
   private
