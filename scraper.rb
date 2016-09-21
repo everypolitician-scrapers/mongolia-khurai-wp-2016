@@ -8,6 +8,10 @@ require 'open-uri/cached'
 require 'pry'
 
 class Table
+  def initialize(node)
+    @table = node
+  end
+
   def rows
     constituency = nil
     table.xpath('.//tr[td]').map do |tr|
@@ -19,18 +23,7 @@ class Table
 
   private
 
-  def url
-    'https://en.wikipedia.org/wiki/'\
-      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
-  end
-
-  def page
-    Nokogiri::HTML(open(url).read)
-  end
-
-  def table
-    page.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
-  end
+  attr_reader :table
 end
 
 class Row
@@ -110,9 +103,24 @@ end
 
 class Khurai
   def members
-    Table.new.rows do |r|
+    Table.new(table).rows do |r|
       Member.new(r)
     end
+  end
+
+  private
+
+  def url
+    'https://en.wikipedia.org/wiki/'\
+      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
+  end
+
+  def page
+    Nokogiri::HTML(open(url).read)
+  end
+
+  def table
+    page.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
   end
 end
 
