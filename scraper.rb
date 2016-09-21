@@ -45,10 +45,6 @@ class Row
 
   attr_reader :tds, :cells
 
-  def cellmap
-    @cellmap ||= cellmap_without_district
-  end
-
   def name
     tds[cellmap[:name]].xpath('.//a').text.strip
   end
@@ -69,14 +65,12 @@ class Row
     tds[cellmap[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
-  def cellmap_without_district
-    unless tds.first[:rowspan]
-      {
-        name: 1,
-        name__mn: 2,
-        party: 4,
-      }
-    end
+  def cellmap
+    {
+      name: 1,
+      name__mn: 2,
+      party: 4,
+    }
   end
 end
 
