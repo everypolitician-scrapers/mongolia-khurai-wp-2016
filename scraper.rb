@@ -9,55 +9,16 @@ require 'scraped_page_archive/open-uri'
 require 'pry'
 
 class Table
-  attr_reader :rows
-
-  def initialize
-    @rows = table.xpath('.//tr[td]').map do |tr|
-      @tds = tr.xpath('./td')
-      @cells = tr_with_district || tr_without_district
-      row
+  def rows
+    constituency = nil
+    table.xpath('.//tr[td]').map do |tr|
+      tds = tr.xpath('./td')
+      constituency = tds.first[:rowspan] ? tds.first.text.strip.gsub("\n",' — ') : constituency
+      Row.new(tds, constituency, url).to_h
     end
   end
 
   private
-
-  attr_reader :cells, :tds
-
-  def row
-    {
-      name: name,
-      name__mn: name_mn,
-      party: party,
-      constituency: constituency || 'n/a',
-      term: term,
-      wikiname: wikiname,
-      source: url,
-    }
-  end
-
-  def name
-    tds[cells[:name]].xpath('.//a').text.strip
-  end
-
-  def name_mn
-    tds[cells[:name__mn]].text.strip
-  end
-
-  def party
-    tds[cells[:party]].text.strip
-  end
-
-  def term
-    '2016'
-  end
-
-  def wikiname
-    tds[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
-  end
-
-  def source
-    url
-  end
 
   def url
     'https://en.wikipedia.org/wiki/'\
@@ -71,9 +32,58 @@ class Table
   def table
     page.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
   end
+end
+
+class Row
+  def initialize(node, constituency, url)
+    @node = node
+    @url = url
+    @constituency = constituency
+    @cells = tr_with_district || tr_without_district
+  end
+
+  def to_h
+    {
+      name: name,
+      name__mn: name_mn,
+      party: party,
+      term: term,
+      wikiname: wikiname,
+      source: source,
+      constituency: constituency,
+    }
+  end
+
+  private
+
+  attr_reader :node, :cells, :constituency
+
+  def name
+    node[cells[:name]].xpath('.//a').text.strip
+  end
+
+  def name_mn
+    node[cells[:name__mn]].text.strip
+  end
+
+  def party
+    node[cells[:party]].text.strip
+  end
+
+  def term
+    '2016'
+  end
+
+  def wikiname
+    node[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
+  end
+
+  def source
+    @url
+  end
 
   def tr_with_district
-    if tds[0][:rowspan]
+    if node.first[:rowspan]
       {
         name: 2,
         name__mn: 3,
@@ -83,17 +93,13 @@ class Table
   end
 
   def tr_without_district
-    {
-      name: 1,
-      name__mn: 2,
-      party: 4,
-    }
-  end
-
-  def constituency
-    cell_text = tds[0].text.strip.gsub("\n", ' — ')
-    @current_constituency = cell_text unless cell_text =~ /\d/
-    @current_constituency
+    unless node.first[:rowspan]
+      {
+        name: 1,
+        name__mn: 2,
+        party: 4,
+      }
+    end
   end
 end
 
@@ -103,13 +109,17 @@ class Member
   def initialize(data)
     @data = data
   end
+
+  def to_h
+    @data.to_h
+  end
 end
 
 class Khurai
   attr_reader :members
 
-  def initialize
-    @members = Table.new.rows do |r|
+  def members
+    Table.new.rows do |r|
       Member.new(r)
     end
   end
