@@ -8,11 +8,11 @@ require 'open-uri'
 require 'scraped_page_archive/open-uri'
 require 'pry'
 
-class Rows
-  attr_reader :data
+class Table
+  attr_reader :rows
 
   def initialize
-    @data = table.xpath('.//tr[td]').map do |tr|
+    @rows = table.xpath('.//tr[td]').map do |tr|
       @tds = tr.xpath('./td')
       @cells = tr_with_district || tr_without_district
       row
@@ -109,7 +109,7 @@ class Khurai
   attr_reader :members
 
   def initialize
-    @members = Rows.new.data do |r|
+    @members = Table.new.rows do |r|
       Member.new(r)
     end
   end
