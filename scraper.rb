@@ -43,18 +43,18 @@ class Row
 
   private
 
-  attr_reader :tds, :cells
+  attr_reader :tds
 
   def name
-    tds[cellmap[:name]].xpath('.//a').text.strip
+    tds[1].xpath('.//a').text.strip
   end
 
   def name_mn
-    tds[cellmap[:name__mn]].text.strip
+    tds[2].text.strip
   end
 
   def party
-    tds[cellmap[:party]].text.strip
+    tds[4].text.strip
   end
 
   def term
@@ -62,15 +62,7 @@ class Row
   end
 
   def wikiname
-    tds[cellmap[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
-  end
-
-  def cellmap
-    {
-      name: 1,
-      name__mn: 2,
-      party: 4,
-    }
+    tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 end
 
