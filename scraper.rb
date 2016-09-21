@@ -8,12 +8,14 @@ require 'open-uri'
 require 'scraped_page_archive/open-uri'
 require 'pry'
 
-class Khurai
-  def members
-    table.xpath('.//tr[td]').map do |tr|
+class Rows
+  attr_reader :data
+
+  def initialize
+    @data = table.xpath('.//tr[td]').map do |tr|
       @tds = tr.xpath('./td')
       @cells = tr_with_district || tr_without_district
-      data
+      row
     end
   end
 
@@ -21,12 +23,12 @@ class Khurai
 
   attr_reader :cells, :tds
 
-  def data
+  def row
     {
       name: name,
       name__mn: name_mn,
       party: party,
-      constituency: constituency,
+      constituency: constituency || 'n/a',
       term: term,
       wikiname: wikiname,
       source: url,
@@ -92,6 +94,24 @@ class Khurai
     cell_text = tds[0].text.strip.gsub("\n", ' — ')
     @current_constituency = cell_text unless cell_text =~ /\d/
     @current_constituency
+  end
+end
+
+class Member
+  attr_reader :data
+
+  def initialize(data)
+    @data = data
+  end
+end
+
+class Khurai
+  attr_reader :members
+
+  def initialize
+    @members = Rows.new.data do |r|
+      Member.new(r)
+    end
   end
 end
 
