@@ -13,7 +13,7 @@ class Table
     table.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
       constituency = tds.first[:rowspan] ? tds.first.text.strip.gsub("\n",' — ') : constituency
-      Row.new(tds, constituency, url).to_h
+      Row.new(tds, constituency).to_h
     end
   end
 
@@ -34,9 +34,8 @@ class Table
 end
 
 class Row
-  def initialize(node, constituency, url)
+  def initialize(node, constituency)
     @node = node
-    @url = url
     @constituency = constituency
     @cells = tr_with_district || tr_without_district
   end
@@ -48,7 +47,6 @@ class Row
       party: party,
       term: term,
       wikiname: wikiname,
-      source: source,
       constituency: constituency,
     }
   end
@@ -75,10 +73,6 @@ class Row
 
   def wikiname
     node[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
-  end
-
-  def source
-    @url
   end
 
   def tr_with_district
