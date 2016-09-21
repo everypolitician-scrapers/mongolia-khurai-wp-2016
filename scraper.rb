@@ -102,6 +102,10 @@ class Member
 end
 
 class Khurai
+  def initialize(url)
+    @url = url
+  end
+
   def members
     Table.new(table).rows do |r|
       Member.new(r)
@@ -110,10 +114,7 @@ class Khurai
 
   private
 
-  def url
-    'https://en.wikipedia.org/wiki/'\
-      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
-  end
+  attr_reader :url
 
   def page
     Nokogiri::HTML(open(url).read)
@@ -124,6 +125,9 @@ class Khurai
   end
 end
 
-Khurai.new.members.each do |mem|
+url = 'https://en.wikipedia.org/wiki/'\
+      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
+
+Khurai.new(url).members.each do |mem|
   ScraperWiki.save_sqlite([:name, :term], mem)
 end
