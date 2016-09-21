@@ -116,8 +116,6 @@ class Member
 end
 
 class Khurai
-  attr_reader :members
-
   def members
     Table.new.rows do |r|
       Member.new(r)
