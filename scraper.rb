@@ -30,7 +30,6 @@ class Row
   def initialize(tds, constituency)
     @tds = tds
     @constituency = constituency
-    @cells = tr_with_district || tr_without_district
   end
 
   def to_h
@@ -48,16 +47,20 @@ class Row
 
   attr_reader :tds, :cells, :constituency
 
+  def cellmap
+    @cellmap ||= cellmap_with_district || cellmap_without_district
+  end
+
   def name
-    tds[cells[:name]].xpath('.//a').text.strip
+    tds[cellmap[:name]].xpath('.//a').text.strip
   end
 
   def name_mn
-    tds[cells[:name__mn]].text.strip
+    tds[cellmap[:name__mn]].text.strip
   end
 
   def party
-    tds[cells[:party]].text.strip
+    tds[cellmap[:party]].text.strip
   end
 
   def term
@@ -65,10 +68,10 @@ class Row
   end
 
   def wikiname
-    tds[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
+    tds[cellmap[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
-  def tr_with_district
+  def cellmap_with_district
     if tds.first[:rowspan]
       {
         name: 2,
@@ -78,7 +81,7 @@ class Row
     end
   end
 
-  def tr_without_district
+  def cellmap_without_district
     unless tds.first[:rowspan]
       {
         name: 1,
