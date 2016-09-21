@@ -27,8 +27,8 @@ class Table
 end
 
 class Row
-  def initialize(node, constituency)
-    @node = node
+  def initialize(tds, constituency)
+    @tds = tds
     @constituency = constituency
     @cells = tr_with_district || tr_without_district
   end
@@ -46,18 +46,18 @@ class Row
 
   private
 
-  attr_reader :node, :cells, :constituency
+  attr_reader :tds, :cells, :constituency
 
   def name
-    node[cells[:name]].xpath('.//a').text.strip
+    tds[cells[:name]].xpath('.//a').text.strip
   end
 
   def name_mn
-    node[cells[:name__mn]].text.strip
+    tds[cells[:name__mn]].text.strip
   end
 
   def party
-    node[cells[:party]].text.strip
+    tds[cells[:party]].text.strip
   end
 
   def term
@@ -65,11 +65,11 @@ class Row
   end
 
   def wikiname
-    node[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
+    tds[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
   def tr_with_district
-    if node.first[:rowspan]
+    if tds.first[:rowspan]
       {
         name: 2,
         name__mn: 3,
@@ -79,7 +79,7 @@ class Row
   end
 
   def tr_without_district
-    unless node.first[:rowspan]
+    unless tds.first[:rowspan]
       {
         name: 1,
         name__mn: 2,
