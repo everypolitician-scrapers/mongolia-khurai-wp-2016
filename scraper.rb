@@ -16,7 +16,7 @@ class Table
     constituency = nil
     table.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
-      constituency = tds.first.text.strip.gsub("\n",' — ') if tds.first[:rowspan]
+      constituency = tds.shift.text.strip.gsub("\n",' — ') if tds.first[:rowspan]
       Row.new(tds).to_h.merge(constituency: constituency)
     end
   end
