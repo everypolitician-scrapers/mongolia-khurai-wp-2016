@@ -3,50 +3,58 @@
 
 require 'scraperwiki'
 require 'nokogiri'
-require 'open-uri'
+require 'open-uri/cached'
 
-require 'scraped_page_archive/open-uri'
 require 'pry'
 
-class Khurai
-  def members
+class Table
+  def initialize(node)
+    @table = node
+  end
+
+  def rows
+    constituency = nil
     table.xpath('.//tr[td]').map do |tr|
-      @tds = tr.xpath('./td')
-      @cells = tr_with_district || tr_without_district
-      data
+      tds = tr.xpath('./td')
+      constituency = tds.shift.text.strip.gsub("\n",' — ') if tds.first[:rowspan]
+      Row.new(tds).to_h.merge(constituency: constituency)
     end
   end
 
   private
 
-  attr_reader :cells, :tds
+  attr_reader :table
+end
 
-  def data
+class Row
+  def initialize(tds)
+    @tds = tds
+  end
+
+  def to_h
     {
       name: name,
       name__mn: name_mn,
       party: party,
-      constituency: constituency,
       term: term,
       wikiname: wikiname,
-      source: url,
     }
   end
 
+  private
+
+  attr_reader :tds
+
   def name
-    tds[cells[:name]].xpath('.//a').text.strip
+    tds[1].xpath('.//a').text.strip
   end
 
   def name_mn
-    tds[cells[:name__mn]].text.strip
+    tds[2].text.strip
   end
 
   def party
-    tds[cells[:party]].text.strip
-  end
-
-  def constituency
-    'n/a'
+    tds[4].text.strip
   end
 
   def term
@@ -54,17 +62,22 @@ class Khurai
   end
 
   def wikiname
-    tds[cells[:name]].xpath('.//a[not(@class="new")]/@title').text.strip
+    tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
+  end
+end
+
+class Khurai
+  def initialize(url)
+    @url = url
   end
 
-  def source
-    url
+  def members
+    Table.new(table).rows
   end
 
-  def url
-    'https://en.wikipedia.org/wiki/'\
-      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
-  end
+  private
+
+  attr_reader :url
 
   def page
     Nokogiri::HTML(open(url).read)
@@ -73,26 +86,11 @@ class Khurai
   def table
     page.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
   end
-
-  def tr_with_district
-    if tds[0][:rowspan]
-      {
-        name: 2,
-        name__mn: 3,
-        party: 5,
-      }
-    end
-  end
-
-  def tr_without_district
-    {
-      name: 1,
-      name__mn: 2,
-      party: 4,
-    }
-  end
 end
 
-Khurai.new.members.each do |mem|
+url = 'https://en.wikipedia.org/wiki/'\
+      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
+
+Khurai.new(url).members.each do |mem|
   ScraperWiki.save_sqlite([:name, :term], mem)
 end
