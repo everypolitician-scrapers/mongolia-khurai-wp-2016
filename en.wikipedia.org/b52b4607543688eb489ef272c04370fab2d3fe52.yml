@@ -18,7 +18,7 @@ response:
     message: OK
   headers:
     Date:
-    - Tue, 27 Sep 2016 10:15:46 GMT
+    - Tue, 27 Sep 2016 10:15:53 GMT
     Content-Type:
     - text/html; charset=UTF-8
     Content-Length:
@@ -45,15 +45,15 @@ response:
     Backend-Timing:
     - D=74163 t=1474960033452526
     X-Varnish:
-    - 1577274183, 1609028855 1578525652, 3889277146
+    - 1577274183, 1609028855 1578525652, 3889320841 3889277146
     Via:
     - 1.1 varnish, 1.1 varnish, 1.1 varnish
     Accept-Ranges:
     - bytes
     Age:
-    - '11312'
+    - '11320'
     X-Cache:
-    - cp1053 miss, cp3043 hit/1, cp3030 miss
+    - cp1053 miss, cp3043 hit/1, cp3030 hit/1
     X-Cache-Status:
     - hit
     Strict-Transport-Security:
@@ -71,4 +71,4 @@ response:
   body:
     encoding: ASCII-8BIT
   http_version: 
-recorded_at: Tue, 27 Sep 2016 10:15:45 GMT
+recorded_at: Tue, 27 Sep 2016 10:15:52 GMT
