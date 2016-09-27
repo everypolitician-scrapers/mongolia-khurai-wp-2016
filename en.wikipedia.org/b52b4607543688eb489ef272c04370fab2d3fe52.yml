@@ -18,11 +18,11 @@ response:
     message: OK
   headers:
     Date:
-    - Wed, 21 Sep 2016 16:56:27 GMT
+    - Tue, 27 Sep 2016 10:15:46 GMT
     Content-Type:
     - text/html; charset=UTF-8
     Content-Length:
-    - '12891'
+    - '12888'
     Connection:
     - keep-alive
     Server:
@@ -41,27 +41,27 @@ response:
     X-Content-Type-Options:
     - nosniff
     Last-Modified:
-    - Wed, 07 Sep 2016 10:36:53 GMT
+    - Sun, 25 Sep 2016 14:49:35 GMT
     Backend-Timing:
-    - D=81577 t=1474454213586226
+    - D=74163 t=1474960033452526
     X-Varnish:
-    - 4065874063, 2365120202, 1413321417 1253992881
+    - 1577274183, 1609028855 1578525652, 3889277146
     Via:
     - 1.1 varnish, 1.1 varnish, 1.1 varnish
     Accept-Ranges:
     - bytes
     Age:
-    - '22774'
+    - '11312'
     X-Cache:
-    - cp1053 miss, cp3043 miss, cp3030 hit/132
+    - cp1053 miss, cp3043 hit/1, cp3030 miss
     X-Cache-Status:
     - hit
     Strict-Transport-Security:
     - max-age=31536000; includeSubDomains; preload
     Set-Cookie:
     - GeoIP=GB:ENG:Bristol:51.46:-2.60:v4; Path=/; secure; Domain=.wikipedia.org
-    - WMF-Last-Access=21-Sep-2016;Path=/;HttpOnly;secure;Expires=Sun, 23 Oct 2016
-      12:00:00 GMT
+    - WMF-Last-Access=27-Sep-2016;Path=/;HttpOnly;secure;Expires=Sat, 29 Oct 2016
+      00:00:00 GMT
     X-Analytics:
     - ns=0;page_id=51029741;https=1;nocookies=1
     X-Client-Ip:
@@ -71,4 +71,4 @@ response:
   body:
     encoding: ASCII-8BIT
   http_version: 
-recorded_at: Wed, 21 Sep 2016 16:56:27 GMT
+recorded_at: Tue, 27 Sep 2016 10:15:45 GMT
