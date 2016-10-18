@@ -66,7 +66,7 @@ class Row
   end
 end
 
-class Khurai
+class Page
   def initialize(url)
     @url = url
   end
@@ -91,6 +91,6 @@ end
 url = 'https://en.wikipedia.org/wiki/'\
       'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
 
-Khurai.new(url).members.each do |mem|
+Page.new(url).members.each do |mem|
   ScraperWiki.save_sqlite([:name, :term], mem)
 end
