@@ -20,15 +20,15 @@ class Row
   attr_reader :tds
 
   def name
-    tds[1].xpath('.//a').text.strip
+    tds[-4].xpath('.//a').text.strip
   end
 
   def name_mn
-    tds[2].text.strip
+    tds[-3].text.strip
   end
 
   def party
-    tds[4].text.strip
+    tds[-1].text.strip
   end
 
   def term
