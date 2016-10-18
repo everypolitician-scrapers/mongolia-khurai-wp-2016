@@ -10,9 +10,20 @@ require_relative 'lib/page'
 
 require 'pry'
 
-url = 'https://en.wikipedia.org/wiki/'\
-      'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016'
+base_url = 'https://en.wikipedia.org/wiki/'
+terms = {
+  2016 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2016',
+  2012 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2012',
+  2008 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2008'
+}
 
-Page.new(url).members.each do |mem|
-  ScraperWiki.save_sqlite([:name, :term], mem)
+def scrape_term(term_number, url)
+  Page.new(url).members.each do |mem|
+    mem[:term] = term_number
+    ScraperWiki.save_sqlite([:name, :term], mem)
+  end
+end
+
+terms.each do |term, url|
+  scrape_term(term, base_url+url)
 end
