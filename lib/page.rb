@@ -13,11 +13,11 @@ class Page
 
   attr_reader :url
 
-  def page
-    Nokogiri::HTML(open(url).read)
+  def noko
+    @noko ||= Nokogiri::HTML(open(url).read)
   end
 
   def table
-    page.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
+    noko.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
   end
 end
