@@ -2,7 +2,7 @@ require_relative 'page'
 require_relative 'table'
 
 class TermPage < Page
-  def members
+  field :members do
     Table.new(table).rows
   end
 
