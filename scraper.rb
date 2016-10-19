@@ -7,6 +7,7 @@ require 'open-uri/cached'
 require_relative 'lib/table'
 require_relative 'lib/row'
 require_relative 'lib/page'
+require_relative 'lib/term_page'
 
 require 'pry'
 
@@ -18,7 +19,7 @@ terms = {
 }
 
 def scrape_term(term_number, url)
-  Page.new(url).members.each do |mem|
+  TermPage.new(url).members.each do |mem|
     mem[:term] = term_number
     ScraperWiki.save_sqlite([:name, :term], mem)
   end
