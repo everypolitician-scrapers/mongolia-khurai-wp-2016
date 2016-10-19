@@ -1,6 +1,6 @@
 require_relative 'member'
 
-class MemberRow < Member
+class KhuralMember < Member
   field :name do
     tds[-4].xpath('.//a').text.strip
   end
