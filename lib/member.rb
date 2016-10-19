@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'field_serializer'
 
-class Row
+class Member
   include FieldSerializer
 
   def initialize(tds)
