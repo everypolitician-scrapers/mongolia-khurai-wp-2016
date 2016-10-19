@@ -4,9 +4,6 @@
 require 'scraperwiki'
 require 'nokogiri'
 require 'open-uri/cached'
-require_relative 'lib/table'
-require_relative 'lib/row'
-require_relative 'lib/page'
 require_relative 'lib/term_page'
 
 require 'pry'
