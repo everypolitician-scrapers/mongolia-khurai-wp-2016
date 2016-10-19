@@ -1,6 +1,9 @@
+require 'field_serializer'
 require 'nokogiri'
 
 class Page
+  include FieldSerializer
+
   def initialize(url)
     @url = url
   end
