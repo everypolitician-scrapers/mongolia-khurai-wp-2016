@@ -1,9 +1,9 @@
 require_relative 'page'
-require_relative 'table'
+require_relative 'members'
 
 class TermPage < Page
   field :members do
-    Table.new(table).rows
+    Members.new(table).to_a
   end
 
   private

@@ -1,12 +1,12 @@
 require 'nokogiri'
 require_relative 'member_row'
 
-class Table
+class Members
   def initialize(node)
     @table = node
   end
 
-  def rows
+  def to_a
     constituency = nil
     table.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
