@@ -1,41 +1,34 @@
 require 'nokogiri'
+require 'field_serializer'
 
 class Row
+  include FieldSerializer
+
   def initialize(tds)
     @tds = tds
   end
 
-  def to_h
-    {
-      name: name,
-      name__mn: name_mn,
-      party: party,
-      term: term,
-      wikiname: wikiname
-    }
+  field :name do
+    tds[-4].xpath('.//a').text.strip
+  end
+
+  field :name_mn do
+    tds[-3].text.strip
+  end
+
+  field :party do
+    tds[-1].text.strip
+  end
+
+  field :term do
+    '2016'
+  end
+
+  field :wikiname do
+    tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
   private
 
   attr_reader :tds
-
-  def name
-    tds[-4].xpath('.//a').text.strip
-  end
-
-  def name_mn
-    tds[-3].text.strip
-  end
-
-  def party
-    tds[-1].text.strip
-  end
-
-  def term
-    '2016'
-  end
-
-  def wikiname
-    tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
-  end
 end
