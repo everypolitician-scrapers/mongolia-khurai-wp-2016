@@ -1,4 +1,5 @@
 require 'nokogiri'
+require_relative 'member_row'
 
 class Table
   def initialize(node)
@@ -10,7 +11,7 @@ class Table
     table.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
       constituency = tds.shift.text.strip.gsub("\n",' — ') if tds.first[:rowspan]
-      Row.new(tds).to_h.merge(constituency: constituency)
+      MemberRow.new(tds).to_h.merge(constituency: constituency)
     end
   end
 
