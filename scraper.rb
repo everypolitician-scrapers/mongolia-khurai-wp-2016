@@ -15,13 +15,9 @@ terms = {
   2008 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2008'
 }
 
-def scrape_term(term_number, url)
-  TermPage.new(url).members.each do |mem|
-    mem[:term] = term_number
+terms.each do |term, url|
+  TermPage.new(base_url + url).members.each do |mem|
+    mem[:term] = term
     ScraperWiki.save_sqlite([:name, :term], mem)
   end
-end
-
-terms.each do |term, url|
-  scrape_term(term, base_url+url)
 end
