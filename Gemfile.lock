@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/everypolitician/field_serializer.git
-  revision: 26d1a15080a4a0ab821ce74652afc16ff86883d5
+  remote: https://github.com/everypolitician/field_serializer.git
+  revision: 5de2b5898b8f56c79f62276362047940312f591a
   specs:
     field_serializer (0.1.0)
 
