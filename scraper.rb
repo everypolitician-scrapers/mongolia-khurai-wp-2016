@@ -2,8 +2,6 @@
 # encoding: utf-8
 
 require 'scraperwiki'
-require 'nokogiri'
-require 'open-uri/cached'
 require_relative 'lib/term_page'
 
 require 'pry'
