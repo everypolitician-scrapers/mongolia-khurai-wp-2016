@@ -1,4 +1,3 @@
-require 'nokogiri'
 require_relative 'khural_member'
 
 class Members
