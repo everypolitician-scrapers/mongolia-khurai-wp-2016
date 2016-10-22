@@ -3,8 +3,8 @@ require 'field_serializer'
 class KhuralMember
   include FieldSerializer
 
-  def initialize(tds)
-    @tds = tds
+  def initialize(tr)
+    @tr = tr
   end
 
   field :name do
@@ -33,5 +33,9 @@ class KhuralMember
 
   private
 
-  attr_reader :tds
+  attr_reader :tr
+
+  def tds
+    @tds ||= tr.css('td')
+  end
 end

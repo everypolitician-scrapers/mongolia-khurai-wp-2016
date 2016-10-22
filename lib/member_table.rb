@@ -5,8 +5,7 @@ require_relative 'khural_member'
 class MemberTable < NokogiriDocument
   field :members do
     table.xpath('.//tr[td]').map do |tr|
-      tds = tr.xpath('./td')
-      KhuralMember.new(tds).to_h
+      KhuralMember.new(tr).to_h
     end
   end
 
