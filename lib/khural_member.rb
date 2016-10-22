@@ -24,7 +24,7 @@ class KhuralMember
   end
 
   field :wikiname do
-    tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
+    tds[-4].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
   private
