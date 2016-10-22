@@ -1,4 +1,4 @@
-require_relative 'members'
+require_relative 'member_table'
 require 'nokogiri'
 
 class TermPage
@@ -7,7 +7,7 @@ class TermPage
   end
 
   def members
-    Members.new(table).to_a
+    MemberTable.new(table).members
   end
 
   private

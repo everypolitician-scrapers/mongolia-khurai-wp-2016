@@ -1,8 +1,8 @@
 require_relative 'nokogiri_document'
 require_relative 'khural_member'
 
-class Members < NokogiriDocument
-  def to_a
+class MemberTable < NokogiriDocument
+  field :members do
     constituency = nil
     noko.xpath('.//tr[td]').map do |tr|
       tds = tr.xpath('./td')
