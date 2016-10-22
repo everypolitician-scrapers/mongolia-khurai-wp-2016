@@ -11,10 +11,6 @@ class KhuralMember < NokogiriDocument
     tds[-1].text.strip
   end
 
-  field :term do
-    '2016'
-  end
-
   field :wikiname do
     tds[-4].xpath('.//a[not(@class="new")]/@title').text.strip
   end
