@@ -27,6 +27,10 @@ class KhuralMember
     tds[-4].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
+  field :constituency do
+    tds[0].text.strip.gsub("\n",' — ')
+  end
+
   private
 
   attr_reader :tds
