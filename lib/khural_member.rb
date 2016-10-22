@@ -1,6 +1,12 @@
-require_relative 'member'
+require 'field_serializer'
 
-class KhuralMember < Member
+class KhuralMember
+  include FieldSerializer
+
+  def initialize(tds)
+    @tds = tds
+  end
+
   field :name do
     tds[-4].xpath('.//a').text.strip
   end
@@ -20,4 +26,8 @@ class KhuralMember < Member
   field :wikiname do
     tds[1].xpath('.//a[not(@class="new")]/@title').text.strip
   end
+
+  private
+
+  attr_reader :tds
 end
