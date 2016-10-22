@@ -1,15 +1,12 @@
 require_relative 'members'
-require 'field_serializer'
 require 'nokogiri'
 
 class TermPage
-  include FieldSerializer
-
   def initialize(url)
     @url = url
   end
 
-  field :members do
+  def members
     Members.new(table).to_a
   end
 
