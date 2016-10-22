@@ -1,12 +1,4 @@
-require 'field_serializer'
-
-class KhuralMember
-  include FieldSerializer
-
-  def initialize(tr)
-    @tr = tr
-  end
-
+class KhuralMember < NokogiriDocument
   field :name do
     tds[-4].xpath('.//a').text.strip
   end
@@ -33,9 +25,7 @@ class KhuralMember
 
   private
 
-  attr_reader :tr
-
   def tds
-    @tds ||= tr.css('td')
+    @tds ||= noko.css('td')
   end
 end
