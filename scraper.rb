@@ -14,7 +14,8 @@ terms = {
 }
 
 terms.each do |term, url|
-  TermPage.new(base_url + url).members.each do |mem|
+  noko = Nokogiri::HTML(open(base_url + url).read)
+  TermPage.new(noko).members.each do |mem|
     mem[:term] = term
     ScraperWiki.save_sqlite([:name, :term], mem)
   end
