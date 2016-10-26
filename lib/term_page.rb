@@ -4,7 +4,7 @@ require 'nokogiri'
 class TermPage < NokogiriDocument
   field :members do
     MemberTable.new(constituency_table, constituency_member_class).members |
-    MemberTable.new(party_list_table, party_list).members
+    MemberTable.new(party_list_table, party_list_member_class).members
   end
 
   private
@@ -21,7 +21,7 @@ class TermPage < NokogiriDocument
     KhuralMember
   end
 
-  def party_list
+  def party_list_member_class
     PartyListKhuralMember
   end
 end
