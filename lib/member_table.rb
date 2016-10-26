@@ -4,14 +4,9 @@ require_relative 'khural_member'
 require_relative 'party_list_khural_member'
 
 class MemberTable < NokogiriDocument
-  def initialize(table:, member_class:)
-    super(table)
-    @member_class = member_class
-  end
-
   field :members do
     table.xpath('.//tr[td]').map do |tr|
-      member_class.new(tr).to_h
+      content_class.new(tr).to_h
     end
   end
 
