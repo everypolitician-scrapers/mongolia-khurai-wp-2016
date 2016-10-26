@@ -3,7 +3,7 @@ require 'nokogiri'
 
 class TermPage < NokogiriDocument
   field :members do
-    MemberTable.new(constituency_table, constituency_member_class).members |
+    MemberTable.new(constituency_table, constituency_member_class).members +
     MemberTable.new(party_list_table, party_list_member_class).members
   end
 
