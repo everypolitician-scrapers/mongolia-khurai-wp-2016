@@ -22,8 +22,4 @@ class MemberTable < NokogiriDocument
   def table
     UnspannedTable.new(noko).transformed
   end
-
-  def string_class
-    String
-  end
 end
