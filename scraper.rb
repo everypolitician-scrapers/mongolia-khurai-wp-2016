@@ -13,10 +13,22 @@ terms = {
   2008 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2008',
 }
 
+class Interaction
+  def initialize(url)
+    @url = url
+  end
+
+  def noko
+    @noko ||= Nokogiri::HTML(open(url).read)
+  end
+
+  private
+
+  attr_reader :url
+end
+
 terms.each do |term, url|
-  # TODO: Add a class to encapsulate the http interaction + nokogiri
-  noko = Nokogiri::HTML(open(base_url + url).read)
-  TermPage.new(noko).members.each do |mem|
+  TermPage.new(Interaction.new(base_url + url).noko).members.each do |mem|
     mem[:term] = term
     ScraperWiki.save_sqlite(%i(name term), mem)
   end
