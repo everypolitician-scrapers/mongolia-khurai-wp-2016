@@ -19,10 +19,14 @@ class Interaction
   end
 
   def noko
-    @noko ||= Nokogiri::HTML(open(url).read)
+    @noko ||= Nokogiri::HTML(response.read)
   end
 
   private
+
+  def response
+    @response ||= open(url)
+  end
 
   attr_reader :url
 end
