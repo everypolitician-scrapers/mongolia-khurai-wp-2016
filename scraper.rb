@@ -13,7 +13,7 @@ terms = {
   2008 => 'List_of_MPs_elected_in_the_Mongolian_legislative_election,_2008',
 }
 
-class Interaction
+class ScrapedPage
   def initialize(url)
     @url = url
   end
@@ -41,7 +41,7 @@ class Interaction
 end
 
 terms.each do |term, url|
-  TermPage.new(Interaction.new(base_url + url).noko).members.each do |mem|
+  TermPage.new(ScrapedPage.new(base_url + url).noko).members.each do |mem|
     mem[:term] = term
     ScraperWiki.save_sqlite(%i(name term), mem)
   end
