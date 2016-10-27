@@ -14,6 +14,7 @@ terms = {
 }
 
 terms.each do |term, url|
+  # TODO: Add a class to encapsulate the http interaction + nokogiri
   noko = Nokogiri::HTML(open(base_url + url).read)
   TermPage.new(noko).members.each do |mem|
     mem[:term] = term
