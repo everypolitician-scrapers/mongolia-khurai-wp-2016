@@ -1,7 +1,7 @@
 require_relative 'member_table'
 require 'nokogiri'
 
-class TermPage < NokogiriDocument
+class TermPage < ScrapedPage
   field :members do
     MemberTable.new(table).members
   end
