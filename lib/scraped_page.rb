@@ -3,8 +3,6 @@ require 'nokogiri'
 require 'open-uri'
 
 class ScrapedPage
-  include FieldSerializer
-
   def initialize(url)
     @url = url
   end
