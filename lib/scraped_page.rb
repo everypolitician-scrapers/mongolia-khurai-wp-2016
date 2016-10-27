@@ -1,3 +1,7 @@
+require 'field_serializer'
+require 'nokogiri'
+require 'open-uri'
+
 class ScrapedPage
   include FieldSerializer
 
