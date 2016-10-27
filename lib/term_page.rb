@@ -1,9 +1,7 @@
 require_relative 'member_table'
-require 'field_serializer'
+require 'nokogiri'
 
 class TermPage < ScrapedPage
-  include FieldSerializer
-
   field :members do
     MemberTable.new(table).members
   end
