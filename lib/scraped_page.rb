@@ -3,11 +3,11 @@ class ScrapedPage
     @url = url
   end
 
+  private
+
   def noko
     @noko ||= Nokogiri::HTML(response_body)
   end
-
-  private
 
   def response
     @response ||= open(url)
