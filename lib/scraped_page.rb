@@ -20,14 +20,14 @@ class ScrapedPage
 
   module Strategy
     class LiveRequest
-      def get(url)
+      def response(url)
         log "Fetching #{url}"
         response = open(url)
-        Response.new(
+        {
           status:  response.status.first.to_i,
           headers: response.meta,
           body:    response.read
-        )
+        }
       end
 
       private
@@ -38,7 +38,7 @@ class ScrapedPage
     end
 
     class LiveRequestArchive < LiveRequest
-      def get(url)
+      def request(url)
         log "Archiving #{url}"
         scraped_page_archive.record { super }
       end
@@ -65,6 +65,6 @@ class ScrapedPage
   end
 
   def response
-    @response ||= strategy.get(url)
+    @response ||= Response.new(strategy.response(url))
   end
 end
