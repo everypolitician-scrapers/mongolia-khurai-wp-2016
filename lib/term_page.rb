@@ -1,5 +1,5 @@
 require_relative 'member_table'
-require_relative 'scraped_page'
+require 'scraped_page'
 require 'nokogiri'
 
 class TermPage < ScrapedPage
