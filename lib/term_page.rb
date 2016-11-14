@@ -1,10 +1,11 @@
-require_relative 'member_table'
+require_relative 'party_list_member_table'
+require_relative 'constituency_member_table'
 require 'nokogiri'
 
 class TermPage < NokogiriDocument
   field :members do
-    MemberTable.new(constituency_table, constituency_member_class).members +
-    MemberTable.new(party_list_table, party_list_member_class).members
+    ConstituencyMemberTable.new(constituency_table).members +
+      PartyListMemberTable.new(party_list_table).members
   end
 
   private
@@ -15,13 +16,5 @@ class TermPage < NokogiriDocument
 
   def party_list_table
     noko.xpath('.//h2/span[text()[contains(.,"Party list")]]/following::table[1]')
-  end
-
-  def constituency_member_class
-    KhuralMember
-  end
-
-  def party_list_member_class
-    PartyListKhuralMember
   end
 end
