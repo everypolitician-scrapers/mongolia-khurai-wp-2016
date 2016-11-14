@@ -1,6 +1,6 @@
 require_relative 'constituency_member'
 
-class PartyListKhuralMember < NokogiriDocument
+class PartyListMember < NokogiriDocument
 
   field :name do
     tds[-4].xpath('.//a').text.strip
