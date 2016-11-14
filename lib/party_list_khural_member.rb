@@ -1,4 +1,4 @@
-require_relative 'khural_member'
+require_relative 'constituency_member'
 
 class PartyListKhuralMember < NokogiriDocument
 

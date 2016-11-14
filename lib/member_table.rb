@@ -1,6 +1,6 @@
 require_relative 'nokogiri_document'
 require_relative 'unspanned_table'
-require_relative 'khural_member'
+require_relative 'constituency_member'
 require_relative 'party_list_khural_member'
 
 class MemberTable < NokogiriDocument
