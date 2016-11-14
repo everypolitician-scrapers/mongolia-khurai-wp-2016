@@ -1,18 +1,15 @@
 require_relative 'nokogiri_document'
 require_relative 'unspanned_table'
-require_relative 'constituency_member'
-require_relative 'party_list_khural_member'
+require_relative 'party_list_member'
 
-class MemberTable < NokogiriDocument
+class PartyListMemberTable < NokogiriDocument
   field :members do
     table.xpath('.//tr[td]').map do |tr|
-      content_class.new(tr).to_h
+      PartyListMember.new(tr).to_h
     end
   end
 
   private
-
-  attr_reader :member_class
 
   def table
     UnspannedTable.new(noko).transformed
