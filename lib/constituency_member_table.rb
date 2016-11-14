@@ -5,13 +5,11 @@ require_relative 'constituency_member'
 class ConstituencyMemberTable < NokogiriDocument
   field :members do
     table.xpath('.//tr[td]').map do |tr|
-      KhuralMember.new(tr).to_h
+      ConstituencyMember.new(tr).to_h
     end
   end
 
   private
-
-  attr_reader :member_class
 
   def table
     UnspannedTable.new(noko).transformed
