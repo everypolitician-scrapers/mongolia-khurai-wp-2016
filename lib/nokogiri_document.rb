@@ -4,12 +4,11 @@ require 'nokogiri'
 class NokogiriDocument
   include FieldSerializer
 
-  def initialize(noko, content_class = nil)
+  def initialize(noko)
     @noko = noko
-    @content_class = content_class
   end
 
   private
 
-  attr_reader :noko, :content_class
+  attr_reader :noko
 end
