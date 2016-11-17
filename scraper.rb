@@ -3,6 +3,7 @@
 
 require 'scraperwiki'
 require_relative 'lib/term_page'
+require_relative 'lib/unspan_all_tables'
 
 require 'pry'
 
@@ -14,7 +15,7 @@ terms = {
 }
 
 terms.each do |term, url|
-  TermPage.new(response: ScrapedPage::Request.new(url: base_url + url).response).members.each do |mem|
+  TermPage.new(response: ScrapedPage::Request.new(url: base_url + url).response([UnspanAllTables.new])).members.each do |mem|
     mem[:term] = term
     ScraperWiki.save_sqlite(%i(name term), mem)
   end
