@@ -1,10 +1,9 @@
-require_relative 'member_table'
 require 'scraped_page'
-require 'nokogiri'
+require_relative 'member_table'
 
 class TermPage < ScrapedPage
   field :members do
-    MemberTable.new(table).members
+    MemberTable.new(response: response, noko: table).members
   end
 
   private

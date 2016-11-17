@@ -1,4 +1,6 @@
-class KhuralMember < NokogiriDocument
+require 'scraped_page'
+
+class KhuralMember < ScrapedPage
   field :name do
     tds[-4].xpath('.//a').text.strip
   end

@@ -1,11 +1,10 @@
-require_relative 'nokogiri_document'
-require_relative 'unspanned_table'
+require 'scraped_page'
 require_relative 'khural_member'
 
-class MemberTable < NokogiriDocument
+class MemberTable < ScrapedPage
   field :members do
     noko.xpath('.//tr[td]').map do |tr|
-      KhuralMember.new(tr).to_h
+      KhuralMember.new(response: response, noko: tr).to_h
     end
   end
 end
