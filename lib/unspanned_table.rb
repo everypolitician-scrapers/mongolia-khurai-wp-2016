@@ -4,11 +4,8 @@ class UnspannedTable
   end
 
   def transformed
-    @transformed ||= Nokogiri.HTML(
-      '<table>' +
-        reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join +
-      '</table>'
-    )
+    original.children = reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join
+    original
   end
 
   private
