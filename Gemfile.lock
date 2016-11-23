@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/everypolitician/scraped_page.git
-  revision: 48af16a852fc81279b5f0d325bc3e5fa121a5352
-  branch: add-support-for-fragments
+  remote: https://github.com/everypolitician/scraped.git
+  revision: 5686b1f822ed623130a3673b1a6677c840e90817
+  branch: add-scraped_page-request-class
   specs:
-    scraped_page (0.1.0)
+    scraped (0.1.0)
       field_serializer
       nokogiri
       require_all
@@ -96,7 +96,7 @@ DEPENDENCIES
   open-uri-cached
   pry
   rubocop
-  scraped_page!
+  scraped!
   scraperwiki!
   wikidata-client (~> 0.0.7)
 
