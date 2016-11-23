@@ -1,8 +1,8 @@
 require 'nokogiri'
-require 'scraped_page'
+require 'scraped'
 require_relative 'unspanned_table'
 
-class UnspanAllTables < ScrapedPage::Processor
+class UnspanAllTables < Scraped::Response::Decorator
   def body
     Nokogiri::HTML(response.body).tap do |doc|
       doc.css('table').each do |table|

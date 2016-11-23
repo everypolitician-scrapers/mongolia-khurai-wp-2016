@@ -1,6 +1,6 @@
-require 'scraped_page'
+require 'scraped'
 
-class KhuralMember < ScrapedPage
+class KhuralMember < Scraped
   field :name do
     tds[-4].xpath('.//a').text.strip
   end

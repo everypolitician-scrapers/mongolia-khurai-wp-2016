@@ -1,7 +1,7 @@
-require 'scraped_page'
+require 'scraped'
 require_relative 'member_table'
 
-class TermPage < ScrapedPage
+class TermPage < Scraped
   field :members do
     MemberTable.new(response: response, noko: table).members
   end
