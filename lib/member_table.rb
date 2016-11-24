@@ -1,7 +1,7 @@
 require 'scraped'
 require_relative 'khural_member'
 
-class MemberTable < Scraped
+class MemberTable < Scraped::HTML
   field :members do
     noko.xpath('.//tr[td]').map do |tr|
       KhuralMember.new(response: response, noko: tr).to_h
