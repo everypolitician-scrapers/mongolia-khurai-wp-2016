@@ -3,6 +3,7 @@
 
 require 'scraperwiki'
 require_relative 'lib/term_page'
+require_relative 'lib/unspan_all_tables'
 
 require 'pry'
 
@@ -14,8 +15,7 @@ terms = {
 }
 
 terms.each do |term, url|
-  noko = Nokogiri::HTML(open(base_url + url).read)
-  TermPage.new(noko).members.each do |mem|
+  TermPage.new(response: Scraped::Request.new(url: base_url + url).response(decorators: [UnspanAllTables])).members.each do |mem|
     mem[:term] = term
     ScraperWiki.save_sqlite(%i(name term), mem)
   end

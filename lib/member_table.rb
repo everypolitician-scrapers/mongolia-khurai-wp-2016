@@ -1,17 +1,10 @@
-require_relative 'nokogiri_document'
-require_relative 'unspanned_table'
+require 'scraped'
 require_relative 'khural_member'
 
-class MemberTable < NokogiriDocument
+class MemberTable < Scraped::HTML
   field :members do
-    table.xpath('.//tr[td]').map do |tr|
-      KhuralMember.new(tr).to_h
+    noko.xpath('.//tr[td]').map do |tr|
+      KhuralMember.new(response: response, noko: tr).to_h
     end
-  end
-
-  private
-
-  def table
-    UnspannedTable.new(noko).transformed
   end
 end
