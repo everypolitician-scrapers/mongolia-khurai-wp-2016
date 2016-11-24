@@ -4,7 +4,7 @@ require_relative 'unspanned_table'
 
 class UnspanAllTables < Scraped::Response::Decorator
   def body
-    Nokogiri::HTML(response.body).tap do |doc|
+    Nokogiri::HTML(super).tap do |doc|
       doc.css('table').each do |table|
         table.children = UnspannedTable.new(table).transformed.children
       end
