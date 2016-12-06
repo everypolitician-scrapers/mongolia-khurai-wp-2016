@@ -1,4 +1,6 @@
-class ConstituencyMember < NokogiriDocument
+require_relative 'member'
+
+class ConstituencyMember < Member
   field :name do
     tds[-4].xpath('.//a').text.strip
   end
@@ -17,11 +19,5 @@ class ConstituencyMember < NokogiriDocument
 
   field :constituency do
     tds[0].text.strip.gsub("\n", ' — ')
-  end
-
-  private
-
-  def tds
-    @tds ||= noko.css('td')
   end
 end
