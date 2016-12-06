@@ -1,4 +1,4 @@
-class KhuralMember < NokogiriDocument
+class ConstituencyMember < NokogiriDocument
   field :name do
     tds[-4].xpath('.//a').text.strip
   end

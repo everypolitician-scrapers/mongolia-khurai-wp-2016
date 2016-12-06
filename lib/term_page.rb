@@ -1,4 +1,4 @@
-require_relative 'member_table'
+require_relative 'constituency_member_table'
 require 'nokogiri'
 
 class TermPage < NokogiriDocument
