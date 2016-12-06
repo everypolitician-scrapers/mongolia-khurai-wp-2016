@@ -3,12 +3,12 @@ require 'nokogiri'
 
 class TermPage < NokogiriDocument
   field :members do
-    MemberTable.new(table).members
+    MemberTable.new(constituency_member_table).members
   end
 
   private
 
-  def table
+  def constituency_member_table
     noko.xpath('.//h2/span[text()[contains(.,"Constituency")]]/following::table[1]')
   end
 end
