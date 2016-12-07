@@ -5,7 +5,7 @@ class ConstituencyMember < Member
     tds[-4].xpath('.//a').text.strip
   end
 
-  field :name_mn do
+  field :name__mn do
     tds[-3].text.strip
   end
 

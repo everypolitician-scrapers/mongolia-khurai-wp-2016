@@ -9,7 +9,7 @@ class PartyListMember < Member
     tds[0].xpath('.//a[not(@class="new")]/@title').text.strip
   end
 
-  field :name_mn do
+  field :name__mn do
     tds[1].text.strip
   end
 
