@@ -17,6 +17,7 @@ terms.each do |term, url|
   noko = Nokogiri::HTML(open(base_url + url).read)
   TermPage.new(noko).members.each do |mem|
     mem[:term] = term
+    mem[:source] = URI.join('https://en.wikipedia.org/wiki/', url).to_s
     ScraperWiki.save_sqlite(%i(name term), mem)
   end
 end
