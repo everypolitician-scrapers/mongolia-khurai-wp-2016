@@ -1,18 +1,18 @@
 require_relative 'constituency_member_table'
 require_relative 'party_list_member_table'
-require 'nokogiri'
+require 'scraped'
 
-class TermPage < NokogiriDocument
+class TermPage < Scraped::HTML
   field :members do
     constituency_members + party_list_members
   end
 
   field :constituency_members do
-    ConstituencyMemberTable.new(constituency_member_table).members
+    ConstituencyMemberTable.new(noko: constituency_member_table, response: response).members
   end
 
   field :party_list_members do
-    PartyListMemberTable.new(party_list_member_table).members
+    PartyListMemberTable.new(noko: party_list_member_table, response: response).members
   end
 
   private

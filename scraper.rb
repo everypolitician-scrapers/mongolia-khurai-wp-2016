@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'scraperwiki'
+require 'scraped'
 require_relative 'lib/term_page'
 
 require 'pry'
@@ -14,8 +15,7 @@ terms = {
 }.map { |term, url| [term, URI.join(base_url, url).to_s] }.to_h
 
 terms.each do |term, url|
-  noko = Nokogiri::HTML(open(url).read)
-  TermPage.new(noko).members.each do |mem|
+  TermPage.new(response: Scraped::Request.new(url: url).response).members.each do |mem|
     mem[:term] = term
     mem[:source] = url
     ScraperWiki.save_sqlite(%i(name term), mem)

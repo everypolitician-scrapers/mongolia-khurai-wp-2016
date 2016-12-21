@@ -1,7 +1,7 @@
-require_relative 'nokogiri_document'
+require 'scraped'
 require_relative 'unspanned_table'
 
-class MemberTable < NokogiriDocument
+class MemberTable < Scraped::HTML
 
   private
 
