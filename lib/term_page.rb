@@ -8,11 +8,11 @@ class TermPage < Scraped::HTML
   end
 
   field :constituency_members do
-    ConstituencyMemberTable.new(constituency_member_table).members
+    ConstituencyMemberTable.new(noko: constituency_member_table, response: response).members
   end
 
   field :party_list_members do
-    PartyListMemberTable.new(party_list_member_table).members
+    PartyListMemberTable.new(noko: party_list_member_table, response: response).members
   end
 
   private
