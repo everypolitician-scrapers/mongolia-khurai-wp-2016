@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/everypolitician/field_serializer.git
-  revision: 07e89a97eebe4e85ec23f46e04c7e061ac0fe166
-  specs:
-    field_serializer (0.3.0)
-
-GIT
   remote: https://github.com/everypolitician/scraped.git
   revision: 15262aac9e30049459f4b13028bcc9c68b16de3f
   specs:
@@ -34,6 +28,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
+    field_serializer (0.3.0)
     fuzzy_match (2.1.0)
     hashie (3.4.4)
     httpclient (2.8.2.4)
@@ -78,9 +73,7 @@ PLATFORMS
 DEPENDENCIES
   colorize
   execjs
-  field_serializer!
   fuzzy_match
-  nokogiri
   open-uri-cached
   pry
   rubocop
