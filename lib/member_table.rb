@@ -2,7 +2,6 @@ require 'scraped'
 require 'table_unspanner'
 
 class MemberTable < Scraped::HTML
-
   private
 
   def table
