@@ -18,6 +18,7 @@ terms.each do |term, url|
   TermPage.new(response: Scraped::Request.new(url: url).response).members.each do |mem|
     mem[:term] = term
     mem[:source] = url
+    puts mem.reject { |_, v| v.to_s.empty? }.sort_by { |k, _| k }.to_h if ENV['MORPH_DEBUG']
     ScraperWiki.save_sqlite(%i(name term), mem)
   end
 end
