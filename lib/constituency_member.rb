@@ -18,6 +18,6 @@ class ConstituencyMember < Member
   end
 
   field :constituency do
-    tds[0].text.strip.gsub("\n", ' — ')
+    tds[0].text.strip.gsub("\n", ' — ')
   end
 end
